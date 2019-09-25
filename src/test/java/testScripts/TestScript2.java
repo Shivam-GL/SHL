@@ -13,26 +13,18 @@ import utilities.Constants;
 import utilities.Launch;
 
 
-public class TestScript2 extends Launch {
-	WebDriver driver;
+public class TestScript2 extends Launch{
+	
 	HomePage homepage;
 	ComparePage comparePage;
-	@BeforeMethod
-	public void initBrowser() {
-		//fetching driver
-		driver=getWebDriver();
-		goToUrl(Constants.URL);
-		// initializing page objects
-		homepage=new HomePage(driver);
-		comparePage=new ComparePage(driver);
-
-	}
-
 	
 	@Test
 	public void test1() {
+		homepage=new HomePage(getWebDriver());
+		homepage.goToUrl(Constants.URL);
 		homepage.closeModal();
 		homepage.hoverActions();
+		comparePage=new ComparePage(getWebDriver());
 		comparePage.addToCompare(3);
 		comparePage.getMinPrice();
 	}

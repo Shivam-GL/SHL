@@ -11,9 +11,9 @@ import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
 
 import utilities.BaseClass;
 
-public class ComparePage extends BaseClass {
+public class ComparePage{
 	private WebDriver driver;
-
+	private BaseClass baseObject;
 	@FindBy(xpath="//span[contains(text(),'Add to Compare')]")
 	List<WebElement> checkboxList;
 	
@@ -26,7 +26,7 @@ public class ComparePage extends BaseClass {
 	List<WebElement> products;
 
 	public ComparePage(WebDriver driver) {
-		super(driver);
+		baseObject=new BaseClass(driver);
 		this.driver=driver;
 		AjaxElementLocatorFactory factory=new AjaxElementLocatorFactory(driver,100);
 		PageFactory.initElements(factory, this);
@@ -37,9 +37,9 @@ public class ComparePage extends BaseClass {
 
 	public void addToCompare(int items) {
 		for(int i=1;i<=items;i++) {
-			clickBtn(checkboxList.get(i));
+			baseObject.clickBtn(checkboxList.get(i));
 		}
-		clickBtn(compareBtn);
+		baseObject.clickBtn(compareBtn);
 	}
 	/**
 	 * method to print the product with minimum price

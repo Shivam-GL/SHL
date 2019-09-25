@@ -1,6 +1,5 @@
 package utilities;
 
-import java.io.Closeable;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -17,48 +16,48 @@ public class WriteExcel {
 	private XSSFRow row;
 	private XSSFSheet sheet;
 	private String filename;
-File file;
+	private File file;
 	public WriteExcel(String excelPath) {
 		filename = excelPath;
 		workbook = new XSSFWorkbook();
 		sheet = workbook.createSheet("FirstSheet"); 
-		System.out.println("constructor run");
+
 	}
 
 	//entering data in excel
 	public void createExcel() {
-		System.out.println("creating file");
+
 		try {
-			
+
 			fileOutputStream = new FileOutputStream(filename);
 			workbook.write(fileOutputStream);
 			fileOutputStream.close();
-			
+
 		} 
 		catch (IOException e) {
 			e.printStackTrace();
 		}
-		System.out.println("file created");
+
 	}
-	
+
 	public void enterExcelData(String excelPath,String sheetName,int rowIndex,int colIndex,String data) {
 		try {	
-				file=new File(excelPath);
-				fis=new FileInputStream(file);
-				workbook=new XSSFWorkbook(fis);
-				XSSFSheet sheet1 = workbook.getSheet(sheetName);
-				if(sheet1.getRow(rowIndex)==null) {
-					sheet1.createRow(rowIndex).createCell(colIndex).setCellValue(data);
-				}
-				else {
-					sheet1.getRow(rowIndex).createCell(colIndex).setCellValue(data);
-				}
-				fileOutputStream = new FileOutputStream(excelPath);
-				workbook.write(fileOutputStream);
-				fileOutputStream.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-				
-			} 
+			file=new File(excelPath);
+			fis=new FileInputStream(file);
+			workbook=new XSSFWorkbook(fis);
+			XSSFSheet sheet1 = workbook.getSheet(sheetName);
+			if(sheet1.getRow(rowIndex)==null) {
+				sheet1.createRow(rowIndex).createCell(colIndex).setCellValue(data);
+			}
+			else {
+				sheet1.getRow(rowIndex).createCell(colIndex).setCellValue(data);
+			}
+			fileOutputStream = new FileOutputStream(excelPath);
+			workbook.write(fileOutputStream);
+			fileOutputStream.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+	} 
 }

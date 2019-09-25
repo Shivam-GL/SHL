@@ -9,21 +9,13 @@ import utilities.Constants;
 import utilities.Launch;
 
 public class Testscript4 extends Launch{
-  private WebDriver driver;
-  private AmazonHomePage homepage;
-  @BeforeMethod
-	public void initBrowser() {
-		//fetching driver
-		driver=getWebDriver();
-		goToUrl(Constants.URL2);
-		// initializing page objects
-		homepage=new AmazonHomePage(driver);
-		
-	}
+	private WebDriver driver;
+	private AmazonHomePage homepage;
 
 	@Test
 	public void test1() {
-		
+		homepage=new AmazonHomePage(getWebDriver());
+		homepage.goToUrl(Constants.URL2);
 		homepage.searchProduct("mobile");
 		homepage.selectCategory();
 		homepage.sortBy();

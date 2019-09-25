@@ -13,10 +13,10 @@ import utilities.BaseClass;
 import utilities.Constants;
 import utilities.WaitExpectedConditions;
 
-public class AmazonHomePage extends BaseClass {
+public class AmazonHomePage{
 	
 	private WebDriver driver;
-
+	private BaseClass baseObject;
 	@FindBy(xpath="//input[@name=\"field-keywords\"]")
 	WebElement searchBox;
 	@FindBy(xpath="(//input[@type=\"submit\"])[1]")
@@ -32,32 +32,36 @@ public class AmazonHomePage extends BaseClass {
 	@FindBy(xpath="//table[@id=\"histogramTable\"]//span[contains(text(),\"%\")]")
 	List<WebElement>ratings;
 	public AmazonHomePage(WebDriver driver) {
-		super(driver);
+		baseObject=new BaseClass(driver);
 		this.driver=driver;
 		AjaxElementLocatorFactory factory=new AjaxElementLocatorFactory(driver,100);
 		PageFactory.initElements(factory, this);
 	}
 	
 	public void searchProduct(String productName) {
-		enterInput(searchBox,productName);
-		clickBtn(searchBtn);
+		baseObject.enterInput(searchBox,productName);
+		baseObject.clickBtn(searchBtn);
 	}
 	
 	public void selectCategory(){
-		clickBtn(category);
+		baseObject.clickBtn(category);
 	}
 	public void sortBy() {
-		clickBtn(sortBy);
-		clickBtn(sortPrice);
+		baseObject.clickBtn(sortBy);
+		baseObject.clickBtn(sortPrice);
 	}
 	public void getstarvalue() {
-		hoverAndClick(star);
-		System.out.println(ratings.size());
+		baseObject.hoverAndClick(star);
 		int i=Constants.STARRATINGS;
 		for(WebElement rating:ratings) {
-			waitCondition(WaitExpectedConditions.PRESENCE_OF_ELEMENT, rating, 5);
+			baseObject.waitCondition(WaitExpectedConditions.PRESENCE_OF_ELEMENT, rating, 5);
 			System.out.println(i+" star rating: "+rating.getText());
 			i--;
 		}
 		}
+	
+	public void goToUrl(String Url) {
+		driver.get(Url);
+
+	}
 }

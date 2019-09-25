@@ -4,19 +4,19 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
-
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 
 
 public class Launch {
+	
 	private WebDriver driver;
 	private String browserName;
-
-	@BeforeClass
-	public  void initWebDriver()throws Exception{
+	
+	@BeforeMethod
+	public  void initWebDriver(){
 		//if browser-name is not read from excel get it from constants file
 		browserName=(browserName==null)?Constants.BROWSER:browserName;
 		
@@ -33,11 +33,11 @@ public class Launch {
 		driver=new InternetExplorerDriver();
 		break;
 		
-		default: throw new Exception("pass valid browser name");
 		}
+		driver.manage().window().maximize();
 	}
 
-	@AfterClass
+	@AfterMethod
 	public void quitDriver() {
 		driver.quit();
 	}
@@ -45,13 +45,8 @@ public class Launch {
 	public WebDriver getWebDriver() {
 		return driver;
 	}
-	public void goToUrl(String Url) {
-		driver.get(Url);
-		driver.manage().window().maximize();
-	}
 	
-	
-	public void setBroswerName(String browser) {
+	public void setBrowserName(String browser) {
 		browserName=browser;
 	}
 }

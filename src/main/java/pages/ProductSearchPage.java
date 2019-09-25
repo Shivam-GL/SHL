@@ -11,11 +11,11 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
 
 import utilities.BaseClass;
-import utilities.ProductDetails;
 
 
 
-public class ProductSearchPage extends BaseClass {
+
+public class ProductSearchPage{
 
 
     private WebDriver driver;
@@ -24,7 +24,7 @@ public class ProductSearchPage extends BaseClass {
 	private int highestRating=0;
 	private String highestRatingString;
 	private int currentRating;
-
+	private BaseClass baseObject;
 
 	@FindBy (xpath="//div[@data-id]//span[contains(text(),'(')]")
 	List<WebElement> productRating;
@@ -32,12 +32,12 @@ public class ProductSearchPage extends BaseClass {
 	@FindBy(xpath="//div[@data-id]//div//a//div//div[2]//div//div//input")
 	List<WebElement> addToCompare;
 
-	ProductDetails product;
+	
 	ArrayList<WebElement> highestRatedProduct;
 
 
 	public ProductSearchPage(WebDriver driver) {
-		super(driver);
+		baseObject=new BaseClass(driver);
 		this.driver=driver;
 		AjaxElementLocatorFactory factory=new AjaxElementLocatorFactory(driver,100);
 		PageFactory.initElements(factory, this);
