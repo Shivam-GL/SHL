@@ -1,29 +1,24 @@
 package testScripts;
 
-import org.openqa.selenium.WebDriver;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-
 import pages.HomePage;
+import pages.ProductSearchPage;
+import utilities.Constants;
 import utilities.Launch;
-import utilities.PageObjectManager;
 
-public class TestScript1 extends Launch{
-	
-	WebDriver driver;
-	HomePage homepage;
-	PageObjectManager pageobjectmanager;
+public class TestScript1 extends Launch {
 
-@BeforeMethod
-public void initBrowser() {
-	driver=getWebDriver();
-	pageobjectmanager = new PageObjectManager(driver);
-}
-	
-@Test
-  public void f() {
-	 System.out.println("test"); 
-	homepage=pageobjectmanager.getHomePage();
-  }
+	private HomePage homepage;
+	private ProductSearchPage productsearchpage;
+
+	@Test
+	public void test1() {
+		homepage = new HomePage(getWebDriver());
+		homepage.goToUrl(Constants.URL);
+		homepage.closeModal();
+		homepage.searchProduct("earphones");
+		productsearchpage = new ProductSearchPage(getWebDriver());
+		productsearchpage.getProducts();
+	}
 }

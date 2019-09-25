@@ -1,3 +1,5 @@
 .classpath
 test-output/
 target/
+.settings/
+debug.log
